@@ -21,6 +21,7 @@
     "@editorjs/quote": "^2.5.0",
     "@emotion/react": "^11.10.6",
     "@mantine/core": "^6.0.10",
+    "@mantine/dropzone": "^6.0.11",
     "@mantine/form": "^6.0.9",
     "@mantine/hooks": "^6.0.10",
     "@tanstack/react-query": "^4.29.5",
