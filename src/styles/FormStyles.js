@@ -7,8 +7,8 @@ const useStyles = createStyles((theme) => ({
         gridTemplateColumns: "2fr 3fr",
         gridGap: "2rem",
         height: "100%",
-        // backgroundColor: theme.colors.gray[0],
         backgroundColor: theme.white,
+        overflowY: "scroll",
     },
     formWrapper: {
         display: "flex",
@@ -19,6 +19,9 @@ const useStyles = createStyles((theme) => ({
         borderRadius: theme.radius.lg,
         backgroundColor: theme.white,
         boxShadow: theme.shadows.lg,
+        height: "fit-content",
+        alignSelf: "center",
+        // backgroundColor: theme.fn.rgba("#f7f7f2", 0.8),
     },
 
     formHeader: {
@@ -49,8 +52,14 @@ const useStyles = createStyles((theme) => ({
             textDecoration: "underline",
         },
     },
+    bannerWrapper: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
     banner: {
         width: "100%",
+        maxWidth: "80%",
         objectFit: "cover",
     },
     back_url: {
@@ -60,6 +69,12 @@ const useStyles = createStyles((theme) => ({
         alignItems: "center",
         justifyContent: "center",
         color: theme.colors.blue[6],
+    },
+    forgotPassword: {
+        textAlign: "right",
+        fontSize: "14px",
+        margin: 0,
+        fontWeight: 400,
     },
 }))
 

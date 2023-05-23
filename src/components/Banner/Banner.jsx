@@ -4,7 +4,7 @@ import useStyles from "../../styles/FormStyles"
 const Banner = ({ img = defaultBanner }) => {
     const { classes } = useStyles()
     return (
-        <div className="">
+        <div className={classes.bannerWrapper}>
             <img src={img} alt="banner" className={classes.banner} />
         </div>
     )

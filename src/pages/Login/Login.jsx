@@ -3,10 +3,16 @@ import loginBanner from "../../assets/images/login_banner.jpg"
 import useStyles from "../../styles/FormStyles"
 import { Link } from "react-router-dom"
 import { GithubButton } from "../../components/SocialButton/GithubButton"
-import { Button, Divider, PasswordInput, TextInput } from "@mantine/core"
-import { isEmail, matches, useForm } from "@mantine/form"
-
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+import {
+    Button,
+    Divider,
+    Group,
+    PasswordInput,
+    Text,
+    TextInput,
+} from "@mantine/core"
+import { useForm } from "@mantine/form"
+import { emailValidate, passwordValidate } from "../../utils/formValidation"
 
 const initialValues = {
     email: "",
@@ -14,8 +20,8 @@ const initialValues = {
 }
 
 const validate = {
-    email: isEmail("Invalid email format"),
-    password: matches(passwordRegex, "Minimum 8 characters, at least one letter, one number and one special character"),
+    email: emailValidate,
+    password: passwordValidate,
 }
 
 const Login = () => {
@@ -43,31 +49,62 @@ const Login = () => {
                     </p>
                 </div>
 
-                <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)} noValidate>
+                <form
+                    className={classes.form}
+                    onSubmit={form.onSubmit(handleSubmit)}
+                    noValidate
+                >
                     <TextInput
                         label="Email"
                         placeholder="Your email"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         type="email"
                         {...form.getInputProps("email")}
                     />
-                    <PasswordInput
-                        label="Password"
-                        placeholder="Your password"
-                        radius="sm"
-                        withAsterisk
-                        size="md"
-                        {...form.getInputProps("password")}
-                    />
 
-                    <Button variant="gradient" gradient={{ from: "indigo", to: "cyan" }} size="md" type="submit">
+                    <div>
+                        <Group position="apart" mb={5}>
+                            <Text
+                                component="label"
+                                htmlFor="your-password"
+                                size="sm"
+                                weight={500}
+                            >
+                                Your password
+                            </Text>
+
+                            <Link
+                                to="/forgot-password"
+                                className={`${classes.forgotPassword} ${classes.link}`}
+                            >
+                                Forgot your password?
+                            </Link>
+                        </Group>
+                        <PasswordInput
+                            // label="Password"
+                            placeholder="Your password"
+                            radius="sm"
+                            size="md"
+                            {...form.getInputProps("password")}
+                        />
+                    </div>
+
+                    <Button
+                        variant="gradient"
+                        gradient={{ from: "indigo", to: "cyan" }}
+                        size="md"
+                        type="submit"
+                    >
                         Lets go!
                     </Button>
 
                     {/* github login */}
-                    <Divider my="sm" label="Or login with" labelPosition="center" />
+                    <Divider
+                        my="sm"
+                        label="Or login with"
+                        labelPosition="center"
+                    />
                     <GithubButton size="md">Continue with github</GithubButton>
                 </form>
             </div>

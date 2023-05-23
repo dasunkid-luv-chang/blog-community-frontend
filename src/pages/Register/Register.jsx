@@ -1,12 +1,17 @@
 import Banner from "../../components/Banner/Banner"
 import registerBanner from "../../assets/images/register_banner.jpg"
 import useStyles from "../../styles/FormStyles"
+import { useForm } from "@mantine/form"
 import { Link } from "react-router-dom"
 import { GithubButton } from "../../components/SocialButton/GithubButton"
 import { Button, Divider, PasswordInput, TextInput } from "@mantine/core"
-import { isEmail, isNotEmpty, matches, useForm } from "@mantine/form"
-
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/
+import {
+    emailValidate,
+    fullnameValidate,
+    passwordConfirmValidate,
+    passwordValidate,
+    usernameValidate,
+} from "../../utils/formValidation"
 
 const initialValues = {
     fullname: "",
@@ -17,18 +22,11 @@ const initialValues = {
 }
 
 const validate = {
-    fullname: isNotEmpty("Full name is required"),
-    username: isNotEmpty("Username is required"),
-    email: isEmail("Invalid email format"),
-    password: matches(passwordRegex, "Minimum 8 characters, at least one letter, one number and one special character"),
-    // check if password is empty and if it is not empty, check if it matches the password field
-    passwordConfirm: (value, values) => {
-        if (!value) {
-            return "Password confirmation is required"
-        } else if (value !== values.password) {
-            return "Passwords do not match"
-        }
-    },
+    fullname: fullnameValidate,
+    username: usernameValidate,
+    email: emailValidate,
+    password: passwordValidate,
+    passwordConfirm: passwordConfirmValidate,
 }
 
 const Register = () => {
@@ -56,12 +54,15 @@ const Register = () => {
                     </p>
                 </div>
 
-                <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)} noValidate>
+                <form
+                    className={classes.form}
+                    onSubmit={form.onSubmit(handleSubmit)}
+                    noValidate
+                >
                     <TextInput
                         label="Full name"
                         placeholder="Your full name"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         name="fullname"
                         {...form.getInputProps("fullname")}
@@ -70,7 +71,6 @@ const Register = () => {
                         label="Username"
                         placeholder="Eg: john_doe"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         name="username"
                         {...form.getInputProps("username")}
@@ -79,7 +79,6 @@ const Register = () => {
                         label="Email"
                         placeholder="Your email"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         type="email"
                         name="email"
@@ -89,7 +88,6 @@ const Register = () => {
                         label="Password"
                         placeholder="Your password"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         name="password"
                         {...form.getInputProps("password")}
@@ -98,18 +96,26 @@ const Register = () => {
                         label="Password confirmation"
                         placeholder="Your password confirmation"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         name="passwordConfirm"
                         {...form.getInputProps("passwordConfirm")}
                     />
 
-                    <Button variant="gradient" gradient={{ from: "indigo", to: "cyan" }} size="md" type="submit">
+                    <Button
+                        variant="gradient"
+                        gradient={{ from: "indigo", to: "cyan" }}
+                        size="md"
+                        type="submit"
+                    >
                         Create account
                     </Button>
 
                     {/* github login */}
-                    <Divider my="sm" label="Or login with" labelPosition="center" />
+                    <Divider
+                        my="sm"
+                        label="Or login with"
+                        labelPosition="center"
+                    />
                     <GithubButton size="md">Continue with github</GithubButton>
                 </form>
             </div>

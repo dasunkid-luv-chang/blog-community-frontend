@@ -4,14 +4,15 @@ import ForgotPasswordBanner from "../../assets/images/forgot_password_banner.jpg
 import { BiArrowBack } from "react-icons/bi"
 import { Link } from "react-router-dom"
 import { Button, TextInput } from "@mantine/core"
-import { isEmail, useForm } from "@mantine/form"
+import { useForm } from "@mantine/form"
+import { emailValidate } from "../../utils/formValidation"
 
 const initialValues = {
     email: "",
 }
 
 const validate = {
-    email: isEmail("Invalid email format"),
+    email: emailValidate,
 }
 
 const ForgotPassword = () => {
@@ -36,21 +37,31 @@ const ForgotPassword = () => {
                     </Link>
                 </div>
                 <div>
-                    <h2 className={classes.formHeader}>Forgot your password ?</h2>
+                    <h2 className={classes.formHeader}>
+                        Forgot your password ?
+                    </h2>
                 </div>
 
-                <form className={classes.form} onSubmit={form.onSubmit(handleSubmit)} noValidate>
+                <form
+                    className={classes.form}
+                    onSubmit={form.onSubmit(handleSubmit)}
+                    noValidate
+                >
                     <TextInput
                         label="Email"
                         placeholder="Your email"
                         radius="sm"
-                        withAsterisk
                         size="md"
                         type="email"
                         {...form.getInputProps("email")}
                     />
 
-                    <Button variant="gradient" gradient={{ from: "indigo", to: "cyan" }} size="md" type="submit">
+                    <Button
+                        variant="gradient"
+                        gradient={{ from: "indigo", to: "cyan" }}
+                        size="md"
+                        type="submit"
+                    >
                         Confirm
                     </Button>
                 </form>
